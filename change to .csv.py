@@ -2,7 +2,7 @@ from scipy.misc import imread
 import numpy as np
 import pandas as pd
 import os
-root = './data' # or ‘./test’ depending on for which the CSV is being created
+root = './data' # or ‘./data’ depending on for which the CSV is being created
 
 # go through each directory in the root folder given above
 for directory, subdirectories, files in os.walk(root):
@@ -12,8 +12,7 @@ for directory, subdirectories, files in os.walk(root):
         print(file)
         im = imread(os.path.join(directory,file))
         value = im.flatten()
-# I renamed the folders containing digits to the contained digit itself. For example, digit_0 folder was renamed to 0.
-# so taking the 9th value of the folder gave the digit (i.e. "./train/8" ==> 9th value is 8), which was inserted into the first column of the dataset.
+
         value = np.hstack((directory[11:],value))
         df = pd.DataFrame(value).T
         df = df.sample(frac=1) # shuffle the dataset
